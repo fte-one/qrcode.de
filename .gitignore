@@ -48,3 +48,6 @@ coverage/
 *.log
 tmp/
 temp/
+
+# Cloudflare
+.wrangler/
