@@ -144,8 +144,7 @@ A `qrKey` string triggers React re-renders when QR-relevant options change.
 
 ### Offen
 
-1. **Vercel abbauen:** Projekt `qrcode-ochre-five` im Vercel-Dashboard löschen (kein Vercel-Zugang auf dem Dev-Server);
-   PRs #1/#2 schließen und die Branches `vercel/install-vercel-*` löschen (Vercel Analytics/Speed Insights, auf
-   Cloudflare nutzlos).
+1. **Vercel-Projekt löschen:** `qrcode-ochre-five` im Vercel-Dashboard (kein Vercel-Zugang auf dem Dev-Server).
+   PRs #1/#2 (Vercel Analytics/Speed Insights) sind geschlossen, ihre Branches gelöscht (2026-11-19).
 2. `public/favicon.ico` fehlt (Konsolenfehler 404) — es gibt nur `icon.svg`.
 3. `public/sitemap.xml` hat `lastmod 2024-01-30`.
