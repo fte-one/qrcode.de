@@ -6,8 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm run dev      # Start development server (localhost:3000)
-npm run build    # Production build
-npm run start    # Start production server
+npm run build    # Static export to ./out (output: 'export')
+npm run preview  # Build + run with Cloudflare runtime locally (wrangler dev)
+npm run deploy   # Build + deploy to Cloudflare Workers (wrangler deploy)
 npm run lint     # Run ESLint
 ```
 
@@ -82,3 +83,61 @@ A `qrKey` string triggers React re-renders when QR-relevant options change.
 - Language: German (de_DE) - UI text, legal pages, metadata
 - Mobile: Sticky preview bar at top, responsive grid layout
 - Preview shows "Live-Vorschau mit Beispieldaten" (amber) when no data, "Live-Vorschau" (green) with data
+
+## Repository & Hosting
+
+> Stand 2026-11-19. Bei Änderungen am Hosting diesen Abschnitt aktualisieren.
+
+### Repository
+
+- GitHub **`fte-one/qrcode.de`** (öffentlich). Bis 2026-11-19 `okartmann/qrcode` — GitHub leitet alte URLs weiter.
+- Default-Branch **`main`** (hieß vorher `claude/create-qrcode-project-IktZ5`).
+- Lokaler Klon auf dem Dev-Server: `~/git/ok-venture/qrcode.de`. Remote-Control-Dienst `claude-rc@qrcode.de`
+  (Umgebung `dev-qrcode.de` in der Claude-App, Worktree je Session).
+
+### Hosting: Cloudflare Workers (Static Assets)
+
+- Bis 2026-11 auf **Vercel** (`qrcode-ochre-five.vercel.app`), seit 2026-11-19 auf **Cloudflare**.
+- **Build:** `next.config.js` setzt `output: 'export'` und `images.unoptimized` → reine statische Dateien in `./out`.
+  Deshalb gehen **keine** Server-Features (API-Routes, Server Actions, Middleware, `next start`, ISR, `next/image`-Optimierung).
+  Die App ist komplett clientseitig, das passt.
+- **Worker `qrcode-de`** im Cloudflare-Account **FTE.ONE** (`f3e6984dcc97a64e3d564710e231216e`), Konfiguration in
+  `wrangler.jsonc`:
+  - `assets.directory: ./out`, Binding `ASSETS`, `html_handling: auto-trailing-slash` (`/impressum/` → `/impressum`),
+    `not_found_handling: 404-page` (liefert `out/404.html` mit Status 404).
+  - `run_worker_first: true` + `worker/index.js`: leitet **`www.qrcode.de` per 301 auf `qrcode.de`** um (Pfad und Query
+    bleiben), alles andere geht an `env.ASSETS`. Grund: Der API-Token hat kein Recht für Redirect-Rules
+    (*Zone → Dynamic URL Redirects*), deshalb im Worker gelöst.
+  - Routen: `qrcode.de` und `www.qrcode.de` als **Custom Domains** (Cloudflare legt DNS-Einträge und Zertifikat selbst an).
+  - Zusätzlich erreichbar: **https://qrcode-de.kartmann.workers.dev** (`workers_dev: true`), Preview-URLs an.
+- **Testen der Umleitung:** `wrangler dev` schreibt jede lokale Anfrage auf die erste Route (`qrcode.de`) um — die
+  www-Umleitung ist lokal also nicht sichtbar. Stattdessen die Funktion direkt mit Node aufrufen
+  (`new Request('https://www.qrcode.de/…')` + Fake-`env.ASSETS`).
+
+### Deployen
+
+- **Manuell** vom Dev-Server: `CLOUDFLARE_API_TOKEN=… npm run deploy`. Token = `CF_API_TOKEN` aus `~/git/vs6/.env`
+  (Token „dev-host fte.one“; seit 2026-11-19 mit *Konto → Workers-Skripte → Bearbeiten* und
+  *Zone → Worker-Routen → Bearbeiten*). Kein automatischer Deploy bei Push — wer das will: im Cloudflare-Dashboard das
+  GitHub-Repo mit dem Worker verbinden (Workers Builds) oder eine GitHub Action mit eigenem, eng begrenztem Token.
+- Ein Push auf `main` deployt also **nichts** bei Cloudflare. Falls das Vercel-Projekt noch mit dem Repo verbunden ist,
+  baut dort weiter Vercel.
+
+### DNS / Domain `qrcode.de`
+
+- Registrar **United Domains**; Nameserver seit 2026-11-19 bei Cloudflare (`aspen.ns.cloudflare.com`,
+  `uriah.ns.cloudflare.com`). Zone im Account FTE.ONE, Zone-ID `5f104230f469f0e0ec6ec1d500673a54`, Status aktiv.
+- **E-Mail bleibt bei United Domains:** `MX mx00.udag.de` / `mx01.udag.de`, SPF `v=spf1 include:_smtp.udag.de ~all`
+  — nicht anfassen. Dazu ein alter TXT-Eintrag mit Prüfsumme (vermutlich Verifizierung), bleibt stehen.
+- **Alte Vercel-Einträge** (beim Import übernommen, auf „nur DNS“ gestellt): `A qrcode.de → 216.198.79.1`,
+  `CNAME www → 8b89037797e02987.vercel-dns-017.com`. Müssen gelöscht werden, bevor die Custom Domains greifen.
+  **Rückweg zu Vercel:** genau diese beiden Einträge wieder anlegen (nur DNS, nicht proxied).
+
+### Offen (Stand 2026-11-19)
+
+1. Vercel-DNS-Einträge löschen und mit `npm run deploy` die Custom Domains anhängen (wartet auf Freigabe des Nutzers),
+   dann `https://qrcode.de`, `https://www.qrcode.de` (→ 301) und `/impressum` im Browser prüfen.
+2. Danach Vercel abbauen: Projekt löschen, Branches `vercel/install-vercel-*` und PRs #1/#2 schließen
+   (Vercel Analytics/Speed Insights, auf Cloudflare nutzlos).
+3. `public/favicon.ico` fehlt (Konsolenfehler 404) — es gibt nur `icon.svg`.
+4. `public/sitemap.xml` hat `lastmod 2024-01-30`.
