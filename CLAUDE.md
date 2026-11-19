@@ -121,7 +121,7 @@ A `qrKey` string triggers React re-renders when QR-relevant options change.
   *Zone → Worker-Routen → Bearbeiten*). Kein automatischer Deploy bei Push — wer das will: im Cloudflare-Dashboard das
   GitHub-Repo mit dem Worker verbinden (Workers Builds) oder eine GitHub Action mit eigenem, eng begrenztem Token.
 - Ein Push auf `main` deployt also **nichts** bei Cloudflare. Falls das Vercel-Projekt noch mit dem Repo verbunden ist,
-  baut dort weiter Vercel.
+  baut dort weiter Vercel (ohne Wirkung auf die Domain).
 
 ### DNS / Domain `qrcode.de`
 
@@ -129,15 +129,23 @@ A `qrKey` string triggers React re-renders when QR-relevant options change.
   `uriah.ns.cloudflare.com`). Zone im Account FTE.ONE, Zone-ID `5f104230f469f0e0ec6ec1d500673a54`, Status aktiv.
 - **E-Mail bleibt bei United Domains:** `MX mx00.udag.de` / `mx01.udag.de`, SPF `v=spf1 include:_smtp.udag.de ~all`
   — nicht anfassen. Dazu ein alter TXT-Eintrag mit Prüfsumme (vermutlich Verifizierung), bleibt stehen.
-- **Alte Vercel-Einträge** (beim Import übernommen, auf „nur DNS“ gestellt): `A qrcode.de → 216.198.79.1`,
-  `CNAME www → 8b89037797e02987.vercel-dns-017.com`. Müssen gelöscht werden, bevor die Custom Domains greifen.
-  **Rückweg zu Vercel:** genau diese beiden Einträge wieder anlegen (nur DNS, nicht proxied).
+- **Web-Einträge** legt Cloudflare über die Custom Domains selbst an (`AAAA qrcode.de/www → 100::`, proxied) — nicht
+  von Hand ändern. **Always Use HTTPS** ist an (`http://` → 301 auf `https://`).
+- **Rückweg zu Vercel** (falls je nötig): Custom Domains am Worker entfernen, dann wieder anlegen
+  `A qrcode.de → 216.198.79.1` und `CNAME www → 8b89037797e02987.vercel-dns-017.com` (beide nur DNS, nicht proxied).
+  Diese Einträge wurden am 2026-11-19 beim Umschalten gelöscht.
 
-### Offen (Stand 2026-11-19)
+### Umstellung 2026-11-19 — erledigt
 
-1. Vercel-DNS-Einträge löschen und mit `npm run deploy` die Custom Domains anhängen (wartet auf Freigabe des Nutzers),
-   dann `https://qrcode.de`, `https://www.qrcode.de` (→ 301) und `/impressum` im Browser prüfen.
-2. Danach Vercel abbauen: Projekt löschen, Branches `vercel/install-vercel-*` und PRs #1/#2 schließen
-   (Vercel Analytics/Speed Insights, auf Cloudflare nutzlos).
-3. `public/favicon.ico` fehlt (Konsolenfehler 404) — es gibt nur `icon.svg`.
-4. `public/sitemap.xml` hat `lastmod 2024-01-30`.
+- Vercel-DNS-Einträge gelöscht, Custom Domains angehängt (Version `569ce290`). Geprüft: `https://qrcode.de`,
+  `/impressum`, `/datenschutz` → 200 (`server: cloudflare`), unbekannte Pfade → 404,
+  `https://www.qrcode.de/impressum?x=1` → 301 auf `https://qrcode.de/impressum?x=1`, `http://` → 301 auf `https://`.
+  Generator im Browser getestet (URL eingeben → QR-Code wird erzeugt).
+
+### Offen
+
+1. **Vercel abbauen:** Projekt `qrcode-ochre-five` im Vercel-Dashboard löschen (kein Vercel-Zugang auf dem Dev-Server);
+   PRs #1/#2 schließen und die Branches `vercel/install-vercel-*` löschen (Vercel Analytics/Speed Insights, auf
+   Cloudflare nutzlos).
+2. `public/favicon.ico` fehlt (Konsolenfehler 404) — es gibt nur `icon.svg`.
+3. `public/sitemap.xml` hat `lastmod 2024-01-30`.
