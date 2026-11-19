@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "qrcode-de",
+  "compatibility_date": "2026-11-01",
+  "account_id": "f3e6984dcc97a64e3d564710e231216e",
+  // Reine statische Seite: kein Worker-Code, nur die Dateien aus dem Next-Export
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true,
+  "preview_urls": true
+}
