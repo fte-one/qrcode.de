@@ -2,49 +2,143 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply font-sans antialiased;
+    @apply bg-paper font-sans text-ink antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  ::selection {
+    background: #ff5a2b;
+    color: #14130f;
+  }
+
+  :focus-visible {
+    outline: 2.5px solid #ff5a2b;
+    outline-offset: 2px;
+  }
+
+  h1, h2, h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  input[type='color'] {
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+  input[type='color']::-webkit-color-swatch-wrapper { padding: 0; }
+  input[type='color']::-webkit-color-swatch { border: 0; border-radius: 6px; }
+  input[type='color']::-moz-color-swatch { border: 0; border-radius: 6px; }
+
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 22px;
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type='range']::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: #14130f; }
+  input[type='range']::-moz-range-track { height: 4px; border-radius: 2px; background: #14130f; }
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px; margin-top: -8px;
+    border-radius: 50%; background: #ff5a2b; border: 2px solid #14130f;
+  }
+  input[type='range']::-moz-range-thumb {
+    width: 16px; height: 16px;
+    border-radius: 50%; background: #ff5a2b; border: 2px solid #14130f;
   }
 }
 
 @layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8;
+  }
+
+  /* Kleine Mono-Überschrift: „01 — Inhalt“ */
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-muted;
+  }
+
+  .panel {
+    @apply rounded-2xl border-[1.5px] border-ink bg-card;
+  }
+
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl border-[1.5px] border-ink px-5 py-3
+           font-display text-[15px] font-bold leading-none transition-[transform,box-shadow,background-color] duration-150
+           disabled:cursor-not-allowed disabled:opacity-40;
+  }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3
-           font-semibold text-white bg-gradient-to-r from-primary to-primary-dark
-           rounded-lg transition-all duration-200
-           hover:shadow-lg hover:-translate-y-0.5
-           active:translate-y-0;
+    @apply bg-signal text-ink shadow-hard;
+  }
+  .btn-primary:not(:disabled):hover { transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 #14130f; }
+  .btn-primary:not(:disabled):active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 0 #14130f; }
+  .btn-ghost {
+    @apply bg-card text-ink shadow-hard-sm;
+  }
+  .btn-ghost:not(:disabled):hover { @apply bg-sun; }
+  .btn-ghost:not(:disabled):active { transform: translate(2px, 2px); box-shadow: 0 0 0 0 #14130f; }
+
+  .field {
+    @apply w-full rounded-xl border-[1.5px] border-ink/25 bg-white px-3.5 py-2.5 text-[16px] text-ink
+           transition-[border-color,box-shadow] duration-150 placeholder:text-ink/35;
+  }
+  .field:hover { @apply border-ink/50; }
+  .field:focus { @apply border-ink outline-none; box-shadow: 3px 3px 0 0 #14130f; }
+
+  .field-label {
+    @apply mb-1.5 block text-[13px] font-semibold text-ink/80;
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3
-           font-semibold text-white bg-slate-500
-           rounded-lg transition-all duration-200
-           hover:bg-slate-600;
+  /* Auswahlkachel (Muster, Augen, Rahmen …) */
+  .tile {
+    @apply relative flex flex-col items-center justify-center gap-1.5 rounded-xl border-[1.5px] border-ink/15 bg-white p-2
+           text-[11px] font-semibold text-ink/70 transition-all duration-150;
+  }
+  .tile:hover { @apply border-ink/60 text-ink; }
+  .tile[aria-pressed='true'], .tile[aria-checked='true'] {
+    @apply border-ink bg-sun text-ink shadow-hard-sm;
   }
 
-  .btn-success {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3
-           font-semibold text-white bg-green-500
-           rounded-lg transition-all duration-200
-           hover:bg-green-600;
-  }
+  .prose-legal h2 { @apply mb-3 mt-10 text-xl font-bold; }
+  .prose-legal h3 { @apply mb-2 mt-6 font-sans text-base font-semibold; }
+  .prose-legal p, .prose-legal li { @apply text-[15px] leading-relaxed text-ink/75; }
+  .prose-legal p { @apply mb-4; }
+  .prose-legal ul { @apply mb-4 list-disc space-y-1.5 pl-5; }
+  .prose-legal address { @apply not-italic text-[15px] leading-relaxed text-ink/75; }
+  .prose-legal a { @apply underline decoration-signal decoration-2 underline-offset-2; }
+}
 
-  .input-field {
-    @apply w-full px-4 py-3 text-base border-2 border-slate-200
-           rounded-lg bg-white transition-all duration-200
-           focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10
-           placeholder:text-slate-400;
+@layer utilities {
+  /* Punktraster wie Millimeterpapier */
+  .bg-grid {
+    background-image: radial-gradient(circle at 1px 1px, rgba(20, 19, 15, 0.13) 1px, transparent 0);
+    background-size: 22px 22px;
   }
+  .marker {
+    background: linear-gradient(transparent 58%, #ffd447 58%, #ffd447 92%, transparent 92%);
+  }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
 
-  .card {
-    @apply bg-white rounded-xl shadow-sm p-6;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

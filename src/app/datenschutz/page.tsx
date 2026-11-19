@@ -1,99 +1,86 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
+import { LegalPage } from '@/components/site/LegalPage'
 
 export const metadata: Metadata = {
   title: 'Datenschutz',
-  description: 'Datenschutzerklärung von qrcode.de - Kostenloser QR-Code Generator. Wir speichern keine personenbezogenen Daten.',
+  description: 'Datenschutzerklärung von qrcode.de: keine Cookies, kein Tracking, QR-Codes entstehen lokal im Browser.',
+  alternates: { canonical: '/datenschutz' },
 }
 
 export default function DatenschutzPage() {
   return (
-    <div className="py-16">
-      <div className="container mx-auto px-6 max-w-3xl">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">Datenschutzerklärung</h1>
+    <LegalPage title="Datenschutz">
+      <h2>1. Das Wichtigste in Kürze</h2>
+      <p className="rounded-xl border-[1.5px] border-ink bg-sun px-4 py-3 font-semibold !text-ink">
+        QR-Codes entstehen vollständig in Ihrem Browser. Ihre Eingaben werden nicht an uns übertragen. Wir setzen keine Cookies,
+        keine Analyse-Tools und keine Werbung ein.
+      </p>
 
-        <div className="card prose prose-slate max-w-none">
-          <h2 className="text-xl font-semibold mb-4">1. Datenschutz auf einen Blick</h2>
+      <h2>2. Verantwortliche Stelle</h2>
+      <address>
+        <p className="!mb-0 font-semibold !text-ink">Ortwin Kartmann</p>
+        <p className="!mb-0">Voelckerstr. 6</p>
+        <p className="!mb-0">60322 Frankfurt am Main</p>
+        <p>Deutschland</p>
+      </address>
 
-          <h3 className="text-lg font-medium mb-3 mt-6">Allgemeine Hinweise</h3>
-          <p className="text-slate-600 mb-4">
-            Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen
-            Daten passiert, wenn Sie diese Website besuchen.
-          </p>
+      <h2>3. Ihre Eingaben im Generator und im Scanner</h2>
+      <p>
+        Alles, was Sie in den Generator eingeben – Adressen, Texte, WLAN-Zugangsdaten, Kontaktdaten, Bankverbindungen oder
+        hochgeladene Logos – wird ausschließlich lokal in Ihrem Browser verarbeitet. Diese Daten werden weder an unsere Server
+        noch an Dritte übermittelt und von uns nicht gespeichert.
+      </p>
+      <p>
+        Dasselbe gilt für den QR-Code-Scanner: Bilder und das Kamerabild werden nur auf Ihrem Gerät ausgewertet. Der Zugriff auf
+        die Kamera erfolgt erst, nachdem Sie ihn im Browser ausdrücklich erlaubt haben, und endet, sobald Sie den Scanner stoppen
+        oder die Seite verlassen.
+      </p>
 
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-            <p className="text-green-800 font-medium">
-              Kurz gesagt: Wir speichern keine personenbezogenen Daten.
-            </p>
-          </div>
+      <h2>4. Cookies und lokaler Speicher</h2>
+      <p>
+        Diese Website setzt <strong>keine Cookies</strong>. Damit Sie beim nächsten Besuch mit Ihrer Gestaltung weiterarbeiten
+        können, speichert Ihr Browser die gewählten Design-Einstellungen (Farben, Muster, Rahmen, ggf. Logo) im lokalen Speicher
+        („Local Storage“) Ihres Geräts. Diese Informationen bleiben auf Ihrem Gerät, werden nicht an uns übertragen und lassen
+        sich jederzeit über die Browser-Einstellungen oder über „Zurücksetzen“ im Generator löschen. Die Inhalte Ihrer QR-Codes
+        werden dabei nicht gespeichert.
+      </p>
 
-          <h2 className="text-xl font-semibold mb-4 mt-8">2. Keine Erhebung personenbezogener Daten</h2>
-          <p className="text-slate-600 mb-4">
-            Diese Website wurde bewusst so gestaltet, dass <strong>keine personenbezogenen Daten</strong> erhoben,
-            gespeichert oder verarbeitet werden. Alle QR-Codes werden ausschließlich lokal in Ihrem Browser
-            generiert. Ihre eingegebenen Daten (URLs, Texte, Kontaktdaten etc.) verlassen zu keinem Zeitpunkt
-            Ihr Gerät.
-          </p>
+      <h2>5. Keine Analyse-Tools, keine externen Schriften</h2>
+      <p>
+        Wir verwenden keine Analyse- oder Tracking-Dienste. Schriften und Skripte werden von unserer eigenen Domain ausgeliefert;
+        es werden keine Inhalte von Drittanbietern wie Google Fonts nachgeladen.
+      </p>
 
-          <h2 className="text-xl font-semibold mb-4 mt-8">3. Cookies</h2>
-          <p className="text-slate-600 mb-4">
-            Diese Website verwendet <strong>keine Tracking-Cookies</strong> und keine Cookies zu Werbezwecken.
-          </p>
-          <p className="text-slate-600 mb-4">
-            Es werden lediglich technisch notwendige <strong>Session-Cookies</strong> verwendet, die für die
-            grundlegende Funktionalität der Website erforderlich sind. Diese Cookies:
-          </p>
-          <ul className="list-disc list-inside text-slate-600 mb-4 space-y-2">
-            <li>Enthalten keine personenbezogenen Daten</li>
-            <li>Werden automatisch gelöscht, wenn Sie Ihren Browser schließen</li>
-            <li>Dienen ausschließlich der technischen Bereitstellung der Website</li>
-          </ul>
+      <h2>6. Hosting</h2>
+      <p>
+        Diese Website wird über die Infrastruktur von Cloudflare ausgeliefert (Cloudflare, Inc., 101 Townsend St, San Francisco,
+        CA 94107, USA). Beim Aufruf der Seite werden technisch notwendige Verbindungsdaten verarbeitet, die Ihr Browser automatisch
+        übermittelt, insbesondere:
+      </p>
+      <ul>
+        <li>IP-Adresse</li>
+        <li>Datum und Uhrzeit der Anfrage</li>
+        <li>aufgerufene Seite bzw. Datei</li>
+        <li>Browsertyp, Betriebssystem und Referrer-URL</li>
+      </ul>
+      <p>
+        Die Verarbeitung erfolgt, um die Website auszuliefern und vor Angriffen zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Eine
+        Zusammenführung mit anderen Datenquellen findet durch uns nicht statt.
+      </p>
 
-          <h2 className="text-xl font-semibold mb-4 mt-8">4. Keine Analyse-Tools</h2>
-          <p className="text-slate-600 mb-4">
-            Wir verwenden keine Analyse-Tools wie Google Analytics oder ähnliche Dienste. Es findet kein
-            Tracking Ihres Nutzerverhaltens statt.
-          </p>
+      <h2>7. Links zu anderen Diensten</h2>
+      <p>
+        Manche QR-Arten erzeugen Links zu Diensten Dritter (zum Beispiel WhatsApp, PayPal oder Google Maps). Eine Verbindung zu
+        diesen Diensten entsteht erst, wenn jemand den fertigen QR-Code scannt und den Link öffnet. Es gelten dann die
+        Datenschutzbestimmungen des jeweiligen Anbieters.
+      </p>
 
-          <h2 className="text-xl font-semibold mb-4 mt-8">5. Keine Weitergabe von Daten</h2>
-          <p className="text-slate-600 mb-4">
-            Da wir keine personenbezogenen Daten erheben, findet auch keine Weitergabe an Dritte statt.
-          </p>
-
-          <h2 className="text-xl font-semibold mb-4 mt-8">6. Hosting</h2>
-          <p className="text-slate-600 mb-4">
-            Diese Website wird bei einem externen Dienstleister gehostet. Beim Aufruf dieser Website werden
-            automatisch Informationen in sogenannten Server-Log-Dateien gespeichert, die Ihr Browser automatisch
-            übermittelt. Dies sind:
-          </p>
-          <ul className="list-disc list-inside text-slate-600 mb-4 space-y-2">
-            <li>Browsertyp und Browserversion</li>
-            <li>Verwendetes Betriebssystem</li>
-            <li>Referrer URL</li>
-            <li>Uhrzeit der Serveranfrage</li>
-            <li>IP-Adresse (anonymisiert)</li>
-          </ul>
-          <p className="text-slate-600 mb-4">
-            Diese Daten werden nicht mit anderen Datenquellen zusammengeführt und nach kurzer Zeit automatisch
-            gelöscht.
-          </p>
-
-          <h2 className="text-xl font-semibold mb-4 mt-8">7. Ihre Rechte</h2>
-          <p className="text-slate-600 mb-4">
-            Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen
-            Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf
-            Berichtigung oder Löschung dieser Daten. Da wir jedoch keine personenbezogenen Daten speichern,
-            gibt es in der Regel keine Daten, über die wir Auskunft erteilen könnten.
-          </p>
-
-          <h2 className="text-xl font-semibold mb-4 mt-8">8. Verantwortliche Stelle</h2>
-          <address className="not-italic text-slate-600">
-            <p className="font-semibold">Ortwin Kartmann</p>
-            <p>Voelckerstr. 6</p>
-            <p>60322 Frankfurt am Main</p>
-            <p>Deutschland</p>
-          </address>
-        </div>
-      </div>
-    </div>
+      <h2>8. Ihre Rechte</h2>
+      <p>
+        Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten,
+        auf Widerspruch gegen die Verarbeitung sowie auf Beschwerde bei einer Datenschutz-Aufsichtsbehörde. Da wir selbst keine
+        personenbezogenen Daten von Ihnen speichern, gibt es in der Regel keine Daten, über die wir Auskunft erteilen könnten.
+      </p>
+    </LegalPage>
   )
 }

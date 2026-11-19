@@ -1,81 +1,62 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/ui/Header'
-import { Footer } from '@/components/ui/Footer'
+import { Header } from '@/components/site/Header'
+import { Footer } from '@/components/site/Footer'
+
+// Schriften werden beim Build geladen und von qrcode.de selbst ausgeliefert – kein Aufruf bei Google
+const display = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
+const sans = Instrument_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
+const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap', weight: ['400', '500', '700'] })
+
+const title = 'QR-Code-Generator – kostenlos, ohne Anmeldung, ohne Ablaufdatum'
+const description =
+  'QR-Code erstellen in Sekunden: Link, WLAN, vCard, GiroCode und mehr. Mit Logo, Farben und Rahmen, als PNG oder SVG. Kostenlos, ohne Konto – deine Codes laufen nie ab.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://qrcode.de'),
-  title: {
-    default: 'Kostenloser QR-Code Generator | qrcode.de',
-    template: '%s | qrcode.de',
-  },
-  description: 'Erstellen Sie kostenlos QR-Codes ohne versteckte Kosten. Generator für URLs, Text, WiFi, vCard, E-Mail und Telefon. Keine Anmeldung erforderlich, keine Werbung, 100% gratis.',
-  keywords: [
-    'QR-Code Generator',
-    'QR-Code erstellen',
-    'kostenlos',
-    'gratis',
-    'ohne Anmeldung',
-    'ohne versteckte Kosten',
-    'QR Code',
-    'URL QR-Code',
-    'WiFi QR-Code',
-    'vCard QR-Code',
-    'QR-Code kostenlos erstellen',
-    'QR-Code Generator deutsch',
-  ],
+  title: { default: `${title} | qrcode.de`, template: '%s | qrcode.de' },
+  description,
+  applicationName: 'qrcode.de',
   authors: [{ name: 'qrcode.de' }],
-  creator: 'qrcode.de',
-  publisher: 'qrcode.de',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
   openGraph: {
-    title: 'Kostenloser QR-Code Generator | qrcode.de',
-    description: 'Erstellen Sie kostenlos QR-Codes ohne versteckte Kosten. Keine Anmeldung, keine Werbung, 100% gratis.',
+    title,
+    description,
     type: 'website',
     locale: 'de_DE',
     url: 'https://qrcode.de',
     siteName: 'qrcode.de',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'qrcode.de – der QR-Code-Generator ohne Haken' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Kostenloser QR-Code Generator | qrcode.de',
-    description: 'Erstellen Sie kostenlos QR-Codes ohne versteckte Kosten. Keine Anmeldung erforderlich.',
+  twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] },
+  alternates: { canonical: '/' },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/apple-touch-icon.png',
   },
-  alternates: {
-    canonical: 'https://qrcode.de',
-  },
-  verification: {
-    // Google Search Console verification (optional - add your verification code)
-    // google: 'your-verification-code',
-  },
+  manifest: '/manifest.json',
+  formatDetection: { telephone: false, email: false, address: false },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export const viewport: Viewport = {
+  themeColor: '#f3efe6',
+  width: 'device-width',
+  initialScale: 1,
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className="min-h-screen bg-slate-50 flex flex-col">
+    <html lang="de" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+      <body className="flex min-h-screen flex-col">
+        <a href="#inhalt" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
+          Zum Inhalt springen
+        </a>
         <Header />
-        <main className="flex-1">
+        <main id="inhalt" className="flex-1">
           {children}
         </main>
         <Footer />
