@@ -48,7 +48,12 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-2 border-t border-paper/15 pt-6 font-mono text-[11.5px] uppercase tracking-wider text-paper/60 sm:flex-row sm:justify-between">
-          <p>© {new Date().getFullYear()} qrcode.de · Frankfurt am Main</p>
+          <p>
+            © {new Date().getFullYear()} qrcode.de · Ein Projekt von{' '}
+            <a href="https://fte.one" target="_blank" rel="noopener" className="text-paper/85 underline decoration-signal underline-offset-2 hover:text-signal">
+              FTE.ONE
+            </a>
+          </p>
           <p>„QR Code“ ist eine eingetragene Marke der DENSO WAVE INCORPORATED.</p>
         </div>
       </div>

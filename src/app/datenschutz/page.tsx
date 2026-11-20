@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { COMPANY } from '@/lib/company'
 import { ogImage } from '@/lib/seo'
 import { LegalPage } from '@/components/site/LegalPage'
 
@@ -21,11 +22,16 @@ export default function DatenschutzPage() {
 
       <h2>2. Verantwortliche Stelle</h2>
       <address>
-        <p className="!mb-0 font-semibold !text-ink">Ortwin Kartmann</p>
-        <p className="!mb-0">Voelckerstr. 6</p>
-        <p className="!mb-0">60322 Frankfurt am Main</p>
-        <p>Deutschland</p>
+        <p className="!mb-0 font-semibold !text-ink">{COMPANY.legalLine}</p>
+        <p className="!mb-0">{COMPANY.street}</p>
+        <p className="!mb-0">{COMPANY.city}</p>
+        <p>{COMPANY.country}</p>
       </address>
+      <p>
+        Vertreten durch den Geschäftsführer {COMPANY.managingDirector}. E-Mail:{' '}
+        <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>, Telefon:{' '}
+        <a href={`tel:${COMPANY.phoneHref}`}>{COMPANY.phone}</a>
+      </p>
 
       <h2>3. Ihre Eingaben im Generator und im Scanner</h2>
       <p>
@@ -82,7 +88,8 @@ export default function DatenschutzPage() {
       <p>
         Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten,
         auf Widerspruch gegen die Verarbeitung sowie auf Beschwerde bei einer Datenschutz-Aufsichtsbehörde. Da wir selbst keine
-        personenbezogenen Daten von Ihnen speichern, gibt es in der Regel keine Daten, über die wir Auskunft erteilen könnten.
+        personenbezogenen Daten von Ihnen speichern, gibt es in der Regel keine Daten, über die wir Auskunft erteilen könnten. Anfragen richten Sie bitte an die oben
+        genannte E-Mail-Adresse.
       </p>
     </LegalPage>
   )

@@ -45,7 +45,16 @@ export const metadata: Metadata = { alternates: { canonical: '/' } }
 
 const siteJsonLd = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'qrcode.de', alternateName: 'QR-Code-Generator', url: 'https://qrcode.de', inLanguage: 'de' },
-  { '@context': 'https://schema.org', '@type': 'Organization', name: 'qrcode.de', url: 'https://qrcode.de', logo: 'https://qrcode.de/icon-512.png' },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'qrcode.de',
+    legalName: 'OK Venture GmbH',
+    url: 'https://qrcode.de',
+    logo: 'https://qrcode.de/icon-512.png',
+    email: 'mail@ok.vc',
+    address: { '@type': 'PostalAddress', streetAddress: 'Voelckerstr. 6', postalCode: '60322', addressLocality: 'Frankfurt am Main', addressCountry: 'DE' },
+  },
 ]
 
 const appJsonLd = {

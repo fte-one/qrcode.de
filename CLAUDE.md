@@ -149,4 +149,8 @@ style / frame / with logo, download PNG + SVG and feed them to `/qr-code-scanner
 
 1. **Vercel-Projekt löschen:** `qrcode-ochre-five` im Vercel-Dashboard (kein Vercel-Zugang auf dem Dev-Server).
    PRs #1/#2 (Vercel Analytics/Speed Insights) sind geschlossen, ihre Branches gelöscht (2026-11-19).
-2. **Impressum:** Es fehlt eine E-Mail-Adresse für die schnelle elektronische Kontaktaufnahme (§ 5 DDG).
+
+### Anbieter
+
+Impressum/Datenschutz laufen seit 2026-11-20 auf **FTE.ONE c/o OK Venture GmbH** (wie fte.one und vibecapture.app).
+Alle Firmendaten stehen in `src/lib/company.ts` – dort ändern, nicht in den Seiten.

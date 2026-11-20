@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import { COMPANY } from '@/lib/company'
 import { ogImage } from '@/lib/seo'
 import { LegalPage } from '@/components/site/LegalPage'
 
 export const metadata: Metadata = {
   title: 'Impressum',
   description:
-    'Impressum von qrcode.de: Anbieter und Verantwortliche des kostenlosen QR-Code-Generators. Ohne Anmeldung, ohne Tracking, ohne Ablaufdatum.',
+    'Impressum von qrcode.de: Anbieter ist FTE.ONE c/o OK Venture GmbH, Frankfurt am Main. Kontakt, Handelsregister und Verantwortliche des QR-Code-Generators.',
   openGraph: { title: 'Impressum', url: '/impressum', images: [ogImage] },
   alternates: { canonical: '/impressum' },
 }
@@ -15,14 +16,39 @@ export default function ImpressumPage() {
     <LegalPage title="Impressum">
       <h2>Angaben gemäß § 5 DDG</h2>
       <address>
-        <p className="!mb-0 font-semibold !text-ink">Ortwin Kartmann</p>
-        <p className="!mb-0">Voelckerstr. 6</p>
-        <p className="!mb-0">60322 Frankfurt am Main</p>
-        <p>Deutschland</p>
+        <p className="!mb-0 font-semibold !text-ink">{COMPANY.legalLine}</p>
+        <p className="!mb-0">{COMPANY.street}</p>
+        <p className="!mb-0">{COMPANY.city}</p>
+        <p>{COMPANY.country}</p>
       </address>
 
+      <h2>Vertreten durch</h2>
+      <p>Geschäftsführer: {COMPANY.managingDirector}</p>
+
       <h2>Kontakt</h2>
-      <p>Bei Fragen oder Anmerkungen zu dieser Website können Sie uns gerne kontaktieren.</p>
+      <p>
+        Telefon: <a href={`tel:${COMPANY.phoneHref}`}>{COMPANY.phone}</a>
+        <br />
+        E-Mail: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+      </p>
+
+      <h2>Handelsregister</h2>
+      <p>
+        Registergericht: {COMPANY.registerCourt}
+        <br />
+        Registernummer: {COMPANY.registerNumber}
+      </p>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>{COMPANY.managingDirector} (Anschrift wie oben)</p>
+
+      <p>
+        qrcode.de ist ein Projekt von{' '}
+        <a href={COMPANY.url} target="_blank" rel="noopener">
+          FTE.ONE
+        </a>
+        .
+      </p>
 
       <h2>Haftung für Inhalte</h2>
       <p>
