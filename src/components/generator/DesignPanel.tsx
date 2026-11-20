@@ -39,7 +39,7 @@ function Svg({ html, className }: { html: string; className?: string }) {
 function SubHead({ children, aside }: { children: React.ReactNode; aside?: React.ReactNode }) {
   return (
     <div className="mb-2.5 flex items-baseline justify-between gap-3">
-      <h4 className="font-sans text-[13px] font-bold text-ink">{children}</h4>
+      <h3 className="font-sans text-[13px] font-bold text-ink">{children}</h3>
       {aside}
     </div>
   )

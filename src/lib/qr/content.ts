@@ -442,5 +442,8 @@ export const qrTypes: QrType[] = [
   },
 ]
 
+/** Ausgeschriebener Name für Linktexte und Brotkrumen, z. B. „WLAN-QR-Code“ */
+export const typeName = (t: QrType): string => (t.id === 'girocode' ? 'GiroCode' : t.id === 'vcard' ? 'vCard-QR-Code' : `${t.label}-QR-Code`)
+
 export const typeById = (id: TypeId): QrType => qrTypes.find((t) => t.id === id) ?? qrTypes[0]
 export const typeBySlug = (slug: string): QrType | undefined => qrTypes.find((t) => t.slug === slug)

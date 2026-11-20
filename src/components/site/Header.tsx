@@ -8,7 +8,7 @@ import { Logo } from './Logo'
 
 const nav = [
   { href: '/#arten', label: 'QR-Arten' },
-  { href: '/#drucken', label: 'Druck-Ratgeber' },
+  { href: '/ratgeber', label: 'Ratgeber' },
   { href: '/qr-code-scanner', label: 'Scanner' },
   { href: '/#faq', label: 'Fragen' },
 ]

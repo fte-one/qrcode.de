@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import { ogImage } from '@/lib/seo'
 import { LegalPage } from '@/components/site/LegalPage'
 
 export const metadata: Metadata = {
   title: 'Impressum',
-  description: 'Impressum und Anbieterkennzeichnung von qrcode.de.',
+  description:
+    'Impressum von qrcode.de: Anbieter und Verantwortliche des kostenlosen QR-Code-Generators. Ohne Anmeldung, ohne Tracking, ohne Ablaufdatum.',
+  openGraph: { title: 'Impressum', url: '/impressum', images: [ogImage] },
   alternates: { canonical: '/impressum' },
 }
 

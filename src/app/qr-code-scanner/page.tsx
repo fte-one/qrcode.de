@@ -1,17 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ogImage } from '@/lib/seo'
 import { Scanner } from '@/components/site/Scanner'
 import { Faq, faqJsonLd, JsonLd, type FaqItem } from '@/components/site/Faq'
 
-const title = 'QR-Code-Scanner online – Code aus Bild oder per Kamera lesen'
+const title = 'QR-Code-Scanner online – Bild oder Kamera'
 const description =
-  'QR-Code online scannen: Bild hochladen, Screenshot einfügen oder Kamera nutzen. Zeigt den Inhalt, bevor du einem Link folgst. Kostenlos, alles bleibt auf deinem Gerät.'
+  'QR-Code online scannen: Bild hochladen, Screenshot einfügen oder Kamera nutzen. Du siehst den Inhalt vor dem Klick. Kostenlos, alles bleibt auf deinem Gerät.'
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: '/qr-code-scanner' },
-  openGraph: { title, description, url: '/qr-code-scanner', type: 'website', locale: 'de_DE', siteName: 'qrcode.de', images: ['/og.png'] },
+  openGraph: { title, description, url: '/qr-code-scanner', type: 'website', locale: 'de_DE', siteName: 'qrcode.de', images: [ogImage] },
 }
 
 const faqs: FaqItem[] = [

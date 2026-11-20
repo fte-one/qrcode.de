@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Seite nicht gefunden',
+  description: 'Diese Seite gibt es nicht. Zum kostenlosen QR-Code-Generator geht es über die Startseite.',
+  robots: { index: false, follow: true },
+}
 
 export default function NotFound() {
   return (

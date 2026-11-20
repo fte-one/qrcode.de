@@ -14,7 +14,7 @@ export interface Landing {
 
 export const landing: Record<TypeId, Landing> = {
   url: {
-    title: 'QR-Code für Link erstellen – kostenlos & ohne Ablaufdatum',
+    title: 'Link-QR-Code erstellen – kostenlos, ohne Ablauf',
     description:
       'URL eingeben, QR-Code gestalten, als PNG oder SVG laden. Kostenlos, ohne Anmeldung – der Link steckt direkt im Code und läuft nie ab.',
     h1: ['QR-Code für', 'deinen Link'],
@@ -36,7 +36,7 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   text: {
-    title: 'Text-QR-Code erstellen – kostenlos, ohne Internet lesbar',
+    title: 'Text-QR-Code erstellen – auch offline lesbar',
     description:
       'Beliebigen Text als QR-Code speichern: Notiz, Gutscheincode oder Seriennummer. Kostenlos, ohne Anmeldung, funktioniert beim Scannen auch offline.',
     h1: ['QR-Code mit', 'freiem Text'],
@@ -58,9 +58,9 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   wifi: {
-    title: 'WLAN-QR-Code erstellen – Gäste verbinden per Scan',
+    title: 'WLAN-QR-Code erstellen – Gäste verbinden',
     description:
-      'WLAN-QR-Code kostenlos erstellen: Netzwerkname und Passwort eingeben, ausdrucken, fertig. Gäste verbinden sich per Kamera – das Passwort bleibt auf deinem Gerät.',
+      'WLAN-QR-Code kostenlos erstellen: Netzwerkname und Passwort eingeben, ausdrucken, fertig. Gäste verbinden sich per Kamera – das Passwort bleibt lokal.',
     h1: ['WLAN-QR-Code:', 'verbinden ohne Tippen'],
     lead: 'Nie wieder „Großes B, dann die 7 …“. Gäste halten die Kamera auf den Code und sind im WLAN. Dein Passwort wird dabei nicht an uns übertragen – der Code entsteht in deinem Browser.',
     steps: [
@@ -80,10 +80,10 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   vcard: {
-    title: 'vCard-QR-Code erstellen – digitale Visitenkarte kostenlos',
+    title: 'vCard-QR-Code erstellen – Visitenkarte gratis',
     description:
       'Kontaktdaten als QR-Code: Name, Telefon, E-Mail und Adresse landen per Scan im Adressbuch. Kostenlos, ohne Anmeldung, deine Daten bleiben bei dir.',
-    h1: ['Visitenkarte als', 'QR-Code'],
+    h1: ['Visitenkarte als', 'vCard-QR-Code'],
     lead: 'Ein Scan, und dein Kontakt ist gespeichert – mit Name, Nummer, E-Mail und Adresse. Ideal für Visitenkarten, E-Mail-Signaturen, Messestände und Namensschilder.',
     steps: [
       ['Kontaktdaten ausfüllen', 'Nur was du teilen willst. Jedes zusätzliche Feld macht das Muster etwas feiner.'],
@@ -168,7 +168,7 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   whatsapp: {
-    title: 'WhatsApp-QR-Code erstellen – Chat starten per Scan',
+    title: 'WhatsApp-QR-Code erstellen – Chat per Scan',
     description:
       'WhatsApp-QR-Code kostenlos erstellen: Kunden scannen und schreiben dir direkt, ohne deine Nummer zu speichern. Mit vorausgefüllter Nachricht.',
     h1: ['WhatsApp-Chat', 'per QR-Code'],
@@ -190,7 +190,7 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   location: {
-    title: 'Standort-QR-Code erstellen – Adresse in der Karten-App',
+    title: 'Standort-QR-Code erstellen – für Karten-Apps',
     description:
       'QR-Code für einen Standort: Adresse oder Koordinaten eingeben, scannen öffnet die Karten-App mit Routenplanung. Kostenlos und ohne Anmeldung.',
     h1: ['QR-Code für', 'einen Standort'],
@@ -212,7 +212,7 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   event: {
-    title: 'Termin-QR-Code erstellen – Event in den Kalender',
+    title: 'Kalender-QR-Code erstellen – Termin per Scan',
     description:
       'QR-Code für einen Kalendereintrag: Titel, Datum, Uhrzeit und Ort landen per Scan im Kalender. Kostenlos für Einladungen und Plakate erstellen.',
     h1: ['Termin als', 'QR-Code'],
@@ -234,7 +234,7 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   girocode: {
-    title: 'GiroCode erstellen – QR-Code für Überweisung (SEPA)',
+    title: 'GiroCode erstellen – QR-Code für Überweisungen',
     description:
       'GiroCode kostenlos erstellen: IBAN, Empfänger, Betrag und Verwendungszweck als QR-Code für die Banking-App. Mit IBAN-Prüfung, ohne Anmeldung.',
     h1: ['GiroCode für', 'Überweisungen'],
@@ -258,7 +258,7 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   paypal: {
-    title: 'PayPal-QR-Code erstellen – Geld empfangen per Scan',
+    title: 'PayPal-QR-Code erstellen – Geld per Scan',
     description:
       'QR-Code für deinen PayPal.Me-Link: scannen, Betrag bestätigen, bezahlt. Kostenlos erstellen – für Flohmarkt, Verein, Trinkgeld und Spenden.',
     h1: ['PayPal-Zahlung', 'per QR-Code'],
@@ -280,7 +280,7 @@ export const landing: Record<TypeId, Landing> = {
     ],
   },
   bitcoin: {
-    title: 'Bitcoin-QR-Code erstellen – Zahlungsadresse teilen',
+    title: 'Bitcoin-QR-Code erstellen – Adresse & Betrag',
     description:
       'Bitcoin-Adresse als QR-Code, optional mit Betrag. Kostenlos erstellen, mit jeder Wallet scannbar – deine Adresse bleibt in deinem Browser.',
     h1: ['Bitcoin-Adresse', 'als QR-Code'],

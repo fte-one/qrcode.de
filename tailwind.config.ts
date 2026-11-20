@@ -8,7 +8,7 @@ const config: Config = {
         paper: '#f3efe6',
         card: '#fffdf8',
         ink: '#14130f',
-        signal: { DEFAULT: '#ff5a2b', dark: '#e8431a' },
+        signal: { DEFAULT: '#ff5a2b', dark: '#c93610' },
         sun: '#ffd447',
         muted: '#6b6658',
         ok: '#1c7c46',

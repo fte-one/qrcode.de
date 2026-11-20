@@ -3,15 +3,16 @@ import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from 'next/font/
 import './globals.css'
 import { Header } from '@/components/site/Header'
 import { Footer } from '@/components/site/Footer'
+import { ogImage } from '@/lib/seo'
 
 // Schriften werden beim Build geladen und von qrcode.de selbst ausgeliefert – kein Aufruf bei Google
 const display = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
 const sans = Instrument_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap', weight: ['400', '500', '700'] })
+const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap', weight: ['400', '500', '700'], preload: false })
 
-const title = 'QR-Code-Generator – kostenlos, ohne Anmeldung, ohne Ablaufdatum'
+const title = 'QR-Code-Generator kostenlos – ohne Anmeldung'
 const description =
-  'QR-Code erstellen in Sekunden: Link, WLAN, vCard, GiroCode und mehr. Mit Logo, Farben und Rahmen, als PNG oder SVG. Kostenlos, ohne Konto – deine Codes laufen nie ab.'
+  'QR-Code erstellen in Sekunden: Link, WLAN, vCard, GiroCode und mehr. Mit Logo und Farben, als PNG oder SVG. Kostenlos, ohne Anmeldung, ohne Ablaufdatum.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://qrcode.de'),
@@ -27,10 +28,10 @@ export const metadata: Metadata = {
     locale: 'de_DE',
     url: 'https://qrcode.de',
     siteName: 'qrcode.de',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'qrcode.de – der QR-Code-Generator ohne Haken' }],
+    images: [ogImage],
   },
-  twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] },
-  alternates: { canonical: '/' },
+  // Titel/Beschreibung bewusst nicht gesetzt: X/Twitter fällt dann je Seite auf die Open-Graph-Angaben zurück
+  twitter: { card: 'summary_large_image' },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32' },

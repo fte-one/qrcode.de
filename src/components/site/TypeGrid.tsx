@@ -7,7 +7,7 @@ export function TypeGrid({ exclude }: { exclude?: TypeId }) {
   const tiles = [
     ...qrTypes.filter((t) => t.id !== exclude).map((t) => ({ key: t.id, href: `/${t.slug}`, label: t.label, blurb: t.blurb, Icon: typeIcons[t.id] })),
     { key: 'scanner', href: '/qr-code-scanner', label: 'Scanner', blurb: 'Fremden Code prüfen, bevor du klickst', Icon: QrCodeIcon },
-    { key: 'druck', href: '/#drucken', label: 'Druck-Ratgeber', blurb: 'Wie groß muss der Code sein?', Icon: PrinterIcon },
+    { key: 'druck', href: '/ratgeber', label: 'Ratgeber', blurb: 'Druckgröße, Logo, Sicherheit & mehr', Icon: PrinterIcon },
     ...(exclude ? [{ key: 'home', href: '/', label: 'Alle Arten', blurb: 'Zurück zur Übersicht', Icon: Squares2X2Icon }] : []),
   ]
   return (

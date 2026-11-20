@@ -5,7 +5,9 @@ import { Generator } from '@/components/generator/Generator'
 import { TypeGrid } from '@/components/site/TypeGrid'
 import { Faq, faqJsonLd, JsonLd } from '@/components/site/Faq'
 import { landing } from '@/content/landing'
-import { qrTypes, typeBySlug } from '@/lib/qr/content'
+import { guides } from '@/content/guides'
+import { qrTypes, typeBySlug, typeName } from '@/lib/qr/content'
+import { ogImage } from '@/lib/seo'
 
 export function generateStaticParams() {
   return qrTypes.map((t) => ({ slug: t.slug }))
@@ -19,7 +21,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: c.title,
     description: c.description,
     alternates: { canonical: `/${type.slug}` },
-    openGraph: { title: c.title, description: c.description, url: `/${type.slug}`, type: 'website', locale: 'de_DE', siteName: 'qrcode.de', images: ['/og.png'] },
+    openGraph: { title: c.title, description: c.description, url: `/${type.slug}`, type: 'website', locale: 'de_DE', siteName: 'qrcode.de', images: [ogImage] },
   }
 }
 
@@ -27,13 +29,14 @@ export default function TypePage({ params }: { params: { slug: string } }) {
   const type = typeBySlug(params.slug)
   if (!type) notFound()
   const c = landing[type.id]
+  const related = guides.filter((g) => g.relatedTypes.includes(type.id)).slice(0, 4)
 
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'QR-Code-Generator', item: 'https://qrcode.de' },
-      { '@type': 'ListItem', position: 2, name: `${type.label}-QR-Code`, item: `https://qrcode.de/${type.slug}` },
+      { '@type': 'ListItem', position: 2, name: typeName(type), item: `https://qrcode.de/${type.slug}` },
     ],
   }
   const howTo = {
@@ -66,7 +69,7 @@ export default function TypePage({ params }: { params: { slug: string } }) {
       </section>
 
       <section id="generator" className="wrap py-8 sm:py-12">
-        <h2 className="sr-only">{type.label}-QR-Code erstellen</h2>
+        <h2 className="sr-only">{typeName(type)} erstellen</h2>
         <Generator initialType={type.id} />
       </section>
 
@@ -98,6 +101,20 @@ export default function TypePage({ params }: { params: { slug: string } }) {
               </li>
             ))}
           </ul>
+          {related.length > 0 && (
+            <div className="mt-9 border-t-[1.5px] border-ink pt-4">
+              <p className="eyebrow">Zum Weiterlesen</p>
+              <ul className="mt-3 space-y-2">
+                {related.map((g) => (
+                  <li key={g.slug}>
+                    <Link href={`/ratgeber/${g.slug}`} className="font-semibold underline decoration-signal decoration-2 underline-offset-4 hover:text-signal-dark">
+                      {g.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <p className="mt-8 text-[15px] leading-relaxed text-ink/70">
             Wie groß der Code gedruckt werden muss, verrät der{' '}
             <Link href="/#drucken" className="font-semibold underline decoration-signal decoration-2 underline-offset-4">

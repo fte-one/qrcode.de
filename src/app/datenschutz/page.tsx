@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import { ogImage } from '@/lib/seo'
 import { LegalPage } from '@/components/site/LegalPage'
 
 export const metadata: Metadata = {
   title: 'Datenschutz',
-  description: 'Datenschutzerklärung von qrcode.de: keine Cookies, kein Tracking, QR-Codes entstehen lokal im Browser.',
+  description:
+    'Datenschutzerklärung von qrcode.de: keine Cookies, kein Tracking, kein Konto. QR-Codes entstehen lokal im Browser, Ihre Eingaben werden nicht übertragen.',
+  openGraph: { title: 'Datenschutz', url: '/datenschutz', images: [ogImage] },
   alternates: { canonical: '/datenschutz' },
 }
 

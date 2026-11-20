@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { qrTypes } from '@/lib/qr/content'
+import { qrTypes, typeName } from '@/lib/qr/content'
 import { Logo } from './Logo'
 
 export function Footer() {
@@ -16,11 +16,11 @@ export function Footer() {
 
           <div>
             <h2 className="eyebrow !text-paper/50">QR-Arten</h2>
-            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5 text-[15px] sm:grid-cols-3">
+            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5 text-[15px]">
               {qrTypes.map((t) => (
                 <li key={t.id}>
                   <Link href={`/${t.slug}`} className="text-paper/80 hover:text-signal">
-                    {t.label}
+                    {typeName(t)}
                   </Link>
                 </li>
               ))}
@@ -32,7 +32,8 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-[15px]">
               <li><Link href="/#generator" className="text-paper/80 hover:text-signal">Generator</Link></li>
               <li><Link href="/qr-code-scanner" className="text-paper/80 hover:text-signal">QR-Code-Scanner</Link></li>
-              <li><Link href="/#drucken" className="text-paper/80 hover:text-signal">Druck-Ratgeber</Link></li>
+              <li><Link href="/ratgeber" className="text-paper/80 hover:text-signal">Ratgeber</Link></li>
+              <li><Link href="/#drucken" className="text-paper/80 hover:text-signal">Größenrechner für den Druck</Link></li>
               <li><Link href="/#faq" className="text-paper/80 hover:text-signal">Fragen &amp; Antworten</Link></li>
             </ul>
           </div>
@@ -46,7 +47,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-paper/15 pt-6 font-mono text-[11.5px] uppercase tracking-wider text-paper/45 sm:flex-row sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-paper/15 pt-6 font-mono text-[11.5px] uppercase tracking-wider text-paper/60 sm:flex-row sm:justify-between">
           <p>© {new Date().getFullYear()} qrcode.de · Frankfurt am Main</p>
           <p>„QR Code“ ist eine eingetragene Marke der DENSO WAVE INCORPORATED.</p>
         </div>

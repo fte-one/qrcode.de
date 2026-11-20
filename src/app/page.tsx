@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowDownIcon } from '@heroicons/react/24/outline'
 import { Generator } from '@/components/generator/Generator'
@@ -5,6 +6,7 @@ import { TypeGrid } from '@/components/site/TypeGrid'
 import { PrintCalculator } from '@/components/site/PrintCalculator'
 import { Faq, faqJsonLd, JsonLd } from '@/components/site/Faq'
 import { homeFaqs } from '@/content/landing'
+import { guides } from '@/content/guides'
 import { qrTypes } from '@/lib/qr/content'
 
 const promises: [string, string, string][] = [
@@ -39,6 +41,13 @@ const rules: [string, string][] = [
   ['Vektor für den Druck', 'SVG bleibt in jeder Größe scharf. Und: vor der Auflage einen Probedruck scannen.'],
 ]
 
+export const metadata: Metadata = { alternates: { canonical: '/' } }
+
+const siteJsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'qrcode.de', alternateName: 'QR-Code-Generator', url: 'https://qrcode.de', inLanguage: 'de' },
+  { '@context': 'https://schema.org', '@type': 'Organization', name: 'qrcode.de', url: 'https://qrcode.de', logo: 'https://qrcode.de/icon-512.png' },
+]
+
 const appJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
@@ -57,6 +66,9 @@ const appJsonLd = {
 export default function Home() {
   return (
     <>
+      {siteJsonLd.map((d) => (
+        <JsonLd key={d['@type']} data={d} />
+      ))}
       <JsonLd data={appJsonLd} />
       <JsonLd data={faqJsonLd(homeFaqs)} />
 
@@ -75,8 +87,8 @@ export default function Home() {
                 <span className="marker">Ohne Haken.</span>
               </h1>
               <p className="mt-5 max-w-xl animate-rise text-[17px] leading-relaxed text-ink/75 [animation-delay:160ms] sm:text-[19px]">
-                Link, WLAN, Visitenkarte oder GiroCode: eintippen, gestalten, herunterladen. Kein Konto, kein Abo – und dein Code
-                funktioniert auch in zehn Jahren noch.
+                QR-Code online erstellen: Link, WLAN, Visitenkarte oder GiroCode eintippen, gestalten, herunterladen. Kein Konto,
+                kein Abo – und dein Code funktioniert auch in zehn Jahren noch.
               </p>
             </div>
 
@@ -98,7 +110,7 @@ export default function Home() {
 
       {/* ------------------------------------------------------- Generator */}
       <section id="generator" className="wrap py-7 sm:py-10">
-        <h2 className="sr-only">QR-Code erstellen</h2>
+        <h2 className="sr-only">QR-Code kostenlos erstellen</h2>
         <Generator />
       </section>
 
@@ -175,8 +187,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* -------------------------------------------------------- Ratgeber */}
+      <section id="ratgeber" className="wrap py-16 sm:py-24">
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="eyebrow">Ratgeber</p>
+            <h2 className="mt-3 text-[36px] font-extrabold leading-[1.02] tracking-[-0.03em] sm:text-[56px]">
+              Wissen, das <span className="marker">Fehldrucke spart</span>
+            </h2>
+          </div>
+          <Link href="/ratgeber" className="font-semibold underline decoration-signal decoration-2 underline-offset-4">
+            Alle Ratgeber ansehen
+          </Link>
+        </div>
+        <ul className="grid gap-x-10 border-t-[1.5px] border-ink md:grid-cols-2">
+          {guides.map((g, i) => (
+            <li key={g.slug} className="border-b-[1.5px] border-ink/15">
+              <Link href={`/ratgeber/${g.slug}`} className="group flex items-baseline gap-4 py-4">
+                <span className="font-mono text-[11px] font-medium text-signal-dark">{String(i + 1).padStart(2, '0')}</span>
+                <span className="flex-1 font-display text-[19px] font-bold leading-snug group-hover:text-signal-dark">{g.title}</span>
+                <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted">{g.readMinutes} Min.</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* ------------------------------------------------------------- FAQ */}
-      <section id="faq" className="wrap py-16 sm:py-24">
+      <section id="faq" className="wrap border-t-[1.5px] border-ink py-16 sm:py-24">
         <div className="grid gap-10 lg:grid-cols-[340px_1fr] lg:gap-16">
           <div>
             <p className="eyebrow">Fragen &amp; Antworten</p>

@@ -26,9 +26,21 @@ Everything runs client-side; there is no backend.
 - `/[slug]` – one landing page per QR type (`/wlan-qr-code`, `/girocode`, …) with generator preset to that type,
   how-to, tips, FAQ. Slugs come from `qrTypes` in `src/lib/qr/content.ts`, copy from `src/content/landing.ts`.
   Do **not** add `export const dynamicParams = false` – it breaks `next dev` with `output: 'export'`.
+- `/ratgeber` + `/ratgeber/[slug]` – guide articles. Content in `src/content/guides/` (`core.ts`, `more.ts`, interface in
+  `types.ts`); `relatedTypes` links articles and QR type pages in both directions.
 - `/qr-code-scanner` – decode a QR code from image / clipboard / camera (`components/site/Scanner.tsx`)
 - `/impressum`, `/datenschutz` (formal "Sie"; the rest of the site uses "du")
-- `sitemap.ts`, `robots.ts` generate `sitemap.xml` / `robots.txt` at build time
+- `sitemap.ts`, `robots.ts` generate `sitemap.xml` / `robots.txt` at build time. `lastmod` comes from
+  `CONTENT_UPDATED` in `src/lib/seo.ts` (guides: their own `updated`) – bump it when content changes.
+
+### SEO conventions
+
+- `<title>` ≤ 60 characters including the ` | qrcode.de` suffix, description 120–158 characters, one `<h1>` per page.
+- Every page sets its own `alternates.canonical` and `openGraph` (with `url` and `images: [ogImage]`); the layout
+  deliberately sets no canonical and no Twitter title, so nothing is inherited from the home page.
+- JSON-LD: WebSite/Organization/WebApplication/FAQPage (home), BreadcrumbList/HowTo/FAQPage (types), Article (guides).
+- `worker/index.js` 301-redirects `www`, trailing slashes and `.html` to the canonical URL (Cloudflare alone would
+  answer 307). Test `canonicalUrl()` directly with Node.
 
 ### QR core (`src/lib/qr`)
 
@@ -97,7 +109,7 @@ style / frame / with logo, download PNG + SVG and feed them to `/qr-code-scanner
   - `assets.directory: ./out`, Binding `ASSETS`, `html_handling: auto-trailing-slash` (`/impressum/` → `/impressum`),
     `not_found_handling: 404-page` (liefert `out/404.html` mit Status 404).
   - `run_worker_first: true` + `worker/index.js`: leitet **`www.qrcode.de` per 301 auf `qrcode.de`** um (Pfad und Query
-    bleiben), alles andere geht an `env.ASSETS`. Grund: Der API-Token hat kein Recht für Redirect-Rules
+    bleiben), ebenso `/seite/` und `/seite.html` auf `/seite`; alles andere geht an `env.ASSETS`. Grund: Der API-Token hat kein Recht für Redirect-Rules
     (*Zone → Dynamic URL Redirects*), deshalb im Worker gelöst.
   - Routen: `qrcode.de` und `www.qrcode.de` als **Custom Domains** (Cloudflare legt DNS-Einträge und Zertifikat selbst an).
   - Zusätzlich erreichbar: **https://qrcode-de.kartmann.workers.dev** (`workers_dev: true`), Preview-URLs an.
